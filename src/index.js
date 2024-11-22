@@ -5,9 +5,14 @@ const db_url = `mongodb+srv://DhyeyPatel:DhyeyPatel%4018@atlascluster.etej1ka.mo
 const port = 3000;
 
 // Connect to MongoDB
-connectDb(db_url).then(function (connection) {
-  console.log("Connected to MongoDB!");
-  app.listen(port, function () {
-    console.log(`Server is running on port ${port}`);
+try {
+  connectDb(db_url).then(function (connection) {
+    console.log("Connected to MongoDB!");
+    app.listen(port, function () {
+      console.log(`Server is running on port ${port}`);
+    });
   });
-});
+} catch (error) {
+  console.error("Error connecting to MongoDB:", error.message);
+  process.exit(1);
+}

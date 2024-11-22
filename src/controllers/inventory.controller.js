@@ -16,7 +16,6 @@ async function addProduct(req, res) {
     res.status(400).json({ error: err.message });
   }
 }
-
 async function assignProductToUser(req, res) {
   try {
     const { productId, userId } = req.body;
@@ -27,6 +26,13 @@ async function assignProductToUser(req, res) {
     if (!user) {
       console.log("Error: User not found");
       return res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.assignedProduct) {
+      console.log("Error: User already has a product assigned.");
+      return res
+        .status(400)
+        .json({ error: "User already has a product assigned." });
     }
 
     user.assignedProduct = productId;
